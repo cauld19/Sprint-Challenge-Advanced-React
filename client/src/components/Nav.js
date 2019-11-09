@@ -9,7 +9,6 @@ const Nav = () => {
 
 
 
-
   const toggleMode = e => {
     e.preventDefault();
     setDarkMode(!darkMode);

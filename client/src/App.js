@@ -11,7 +11,9 @@ class App extends React.Component {
 
   state = {
     data: [],
-    chartData:[]
+    chartData:[],
+    labelData: [],
+    searchesData: []
   };
 
   componentDidMount() {
@@ -19,14 +21,19 @@ class App extends React.Component {
       .then(res => res.json())
       .then(res => {
         const x = res;
+        
         let chartData = [];
+        let labelData = [];
+        let searchesData = [];
         x.forEach(element => {
           chartData.push({
             labels: [element.name],
             datasets: [{ label: "Player", data: [element.searches],  }]
           });
+          labelData.push(element.name)
+          searchesData.push(element.searches)
         });
-        this.setState({ chartData, data: res });
+        this.setState({ chartData, labelData, searchesData, data: res });
       });
   }
 
@@ -41,7 +48,7 @@ class App extends React.Component {
         <div>
           <Nav />
           <PlayerList data={this.state.data}/>
-          <Graph chartData={this.state.chartData}/>
+          <Graph chartData={this.state.chartData} labelData={this.state.labelData} searchesData={this.state.searchesData}/>
         </div>
       </div>
     );
