@@ -4,35 +4,33 @@ import './App.css';
 import PlayerList from "./components/PlayerList"
 
 import Nav from "./components/Nav";
+import Graph from "./components/graph"
+
 
 class App extends React.Component {
 
   state = {
     data: [],
-
+    chartData:[]
   };
 
   componentDidMount() {
     fetch("http://localhost:5000/api/players")
       .then(res => res.json())
       .then(res => {
-        console.log(
-          "ca: App.js: App: componentDidMount: fetch: then: res: ",
-          res
-        );
-        this.setState({
-          data: res,
+        const x = res;
+        let chartData = [];
+        x.forEach(element => {
+          chartData.push({
+            labels: [element.name],
+            datasets: [{ label: "Player", data: [element.searches],  }]
+          });
         });
-      })
-      .catch(err => {
-        console.log(
-          "bk: index.js: App: componentDidMount: fetch: catch: err: ",
-          err
-        );
+        this.setState({ chartData, data: res });
       });
   }
 
-
+  
 
 
 
@@ -43,6 +41,7 @@ class App extends React.Component {
         <div>
           <Nav />
           <PlayerList data={this.state.data}/>
+          <Graph chartData={this.state.chartData}/>
         </div>
       </div>
     );
