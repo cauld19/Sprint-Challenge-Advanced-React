@@ -12,9 +12,26 @@ const Graph = props => {
 
 
         return(
-            <div className="chart">
+            <div className="graph-styling" style={{ position: "relative", width: 450, height: 450}}>
                 {props.chartData.map((n, index) => {
-                    return <Bar key={index} data={n} />;
+                    return <Bar 
+                                key={index} 
+                                data={n} 
+                                options={{
+                                    responsive: true,
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                              beginAtZero: true,
+                                              min: 0,
+                                              max: 100,
+                                              stepSize: 1
+                                          }
+                                      }]
+                                  }
+            
+                                }}
+                            />;
                 })}
             </div>
         )
