@@ -3,10 +3,13 @@ import './App.css';
 
 import PlayerList from "./components/PlayerList"
 
+import Nav from "./components/Nav";
+
 class App extends React.Component {
 
   state = {
-    data: []
+    data: [],
+
   };
 
   componentDidMount() {
@@ -33,10 +36,14 @@ class App extends React.Component {
 
 
 
+
   render() {
     return (
       <div>
-        <PlayerList data={this.state.data}/>
+        <div>
+          <Nav />
+          <PlayerList data={this.state.data}/>
+        </div>
       </div>
     );
   }
