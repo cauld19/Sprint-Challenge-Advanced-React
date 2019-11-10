@@ -3,16 +3,20 @@ import {Bar, Line} from 'react-chartjs-2';
 
 const Graph = props => {
 
-    const [countData, setCountData] = useState({})
+    const [countData, setCountData] = useState({data: ""})
 
-    console.log(props.labelData)
+    // let firstArr = props.chartData.map(el => el.datasets);
+    // let searchArrY = firstArr.map(el => el[0].data[0])
+    // let yAxisHeight = props.searchesData.map(el => el += 10)
+
+   
 
 
 
     useEffect(  () => {
 
         setCountData({
-            data: {
+            // data: {
                 labels: props.labelData,
                 datasets: [
                     {
@@ -22,7 +26,7 @@ const Graph = props => {
                         borderColor: 'rgba(54, 162, 235, 0.2)'
                     },
                 ]
-            },
+            // },
         });
         
         
@@ -53,11 +57,13 @@ const Graph = props => {
                         }
 
                         }}
-                        data={countData.data}
+                        data={countData}
                         />
                 </div>
                 <div className="graph-styling" style={{ position: "relative", width: 450, height: 450}}>
                     {props.chartData.map((n, index) => {
+                        // console.log(n.datasets.map(el => el.data[0]))
+                        
                         return <Bar 
                             key={index} 
                             data={n} 
@@ -68,8 +74,8 @@ const Graph = props => {
                                         ticks: {
                                           beginAtZero: true,
                                           min: 0,
-                                          max: 100,
-                                          stepSize: 1
+                                          stepSize: 1,
+                                          max: 100
                                       }
                                   }]
                               }

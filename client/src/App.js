@@ -38,7 +38,9 @@ class App extends React.Component {
   }
 
   
-
+  yAxisSearch = () => {
+    this.state.searchesData.forEach(el => el += 10)
+  }
 
 
 
