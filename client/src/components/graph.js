@@ -7,7 +7,7 @@ const Graph = props => {
 
     // let firstArr = props.chartData.map(el => el.datasets);
     // let searchArrY = firstArr.map(el => el[0].data[0])
-    // let yAxisHeight = props.searchesData.map(el => el += 10)
+    let yAxisHeight = props.searchesData.map(el => el += 10)
 
    
 

@@ -38,13 +38,13 @@ class App extends React.Component {
   }
 
   
-  yAxisSearch = () => {
-    this.state.searchesData.forEach(el => el += 10)
-  }
 
 
 
   render() {
+    if (!this.state.data.length) {
+      return <p>Loading...</p>
+    }
     return (
       <div>
         <div>
