@@ -1,26 +1,60 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import PlayerList from "./components/PlayerList"
+
+import Nav from "./components/Nav";
+import Graph from "./components/graph"
+
+
+class App extends React.Component {
+
+  state = {
+    data: [],
+    chartData:[],
+    labelData: [],
+    searchesData: []
+  };
+
+  componentDidMount() {
+    fetch("http://localhost:5000/api/players")
+      .then(res => res.json())
+      .then(res => {
+        const x = res;
+        
+        let chartData = [];
+        let labelData = [];
+        let searchesData = [];
+        x.forEach(element => {
+          chartData.push({
+            labels: [element.name],
+            datasets: [{ label: "Player", data: [element.searches],  }]
+          });
+          labelData.push(element.name)
+          searchesData.push(element.searches)
+        });
+        this.setState({ chartData, labelData, searchesData, data: res });
+      });
+  }
+
+  
+
+
+
+  render() {
+    if (!this.state.data.length) {
+      return <p>Loading...</p>
+    }
+    return (
+      <div>
+        <div>
+          <Nav />
+          <PlayerList data={this.state.data}/>
+          <Graph chartData={this.state.chartData} labelData={this.state.labelData} searchesData={this.state.searchesData}/>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
